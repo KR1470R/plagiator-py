@@ -4,9 +4,9 @@ import dotenv
 import logging
 from time import sleep
 import concurrent.futures
+from random import randint
 from utils.exists import exists
 from os import getenv, path, curdir
-from random import randint, shuffle
 from utils.plagiator import request
 from utils.split_chunks import split_chunks
 from utils.document_parser import DocumentParser
@@ -34,7 +34,7 @@ results_designation = path.abspath(path.join(
   "results",
   result_target_filename
 ))
-concurrent_tasks_limit = int(getenv("CONCURRENT_TASKS_LINIT") or 12)
+concurrent_tasks_limit = int(getenv("CONCURRENT_TASKS_LINIT") or 5)
 bar_length = 30
 
 parser = DocumentParser()
@@ -45,7 +45,6 @@ if data is None:
   raise Exception("Unable to extact text from the document.")
 
 chunks = split_chunks(data, words_per_chunk)
-shuffle(chunks)
 
 results = []
 
