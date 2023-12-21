@@ -74,8 +74,7 @@ def request(text: str, title: str = None):
     if error_code and int(error_code) > 0:
       logging.warning(
         f"REQUEST RETURNED ERROR WITH STATUS {error_code}: " +\
-          f"{jsonify['error']} with text:\n" +\
-            f"{text}"
+          f"{jsonify['error']} with text:\n{text}"
       )
   except Exception as err:
     logging.error(f"REQUEST ERROR: {repr(err)}:{api_response.content}")
