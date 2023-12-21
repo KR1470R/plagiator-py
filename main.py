@@ -49,13 +49,14 @@ shuffle(chunks)
 
 results = []
 
-def render_progress_bar(bar_percentage):
+def render_progress_bar(bar_percentage, nl=False):
   sys.stdout.write('\r')
   sys.stdout.write(
-    "Completed: [{:{}}] {:>3}%".format(
+    "Completed: [{:{}}] {:>3}%{}".format(
       '='*int(bar_percentage/(100.0/bar_length)),
       bar_length, 
-      int(bar_percentage)
+      int(bar_percentage),
+      "\n" if nl else ""
     )
   )
   sys.stdout.flush()
@@ -87,8 +88,10 @@ while len(chunks):
   )
   del chunks[:concurrent_tasks_limit]
   current_progress += tasks_created
-render_progress_bar(100)
-print()
+render_progress_bar(100, True)
+
+if len(results) == 0:
+  logging.error("There are no results.")
 
 sum_percentage = 0
 

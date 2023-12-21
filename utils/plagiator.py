@@ -1,3 +1,4 @@
+import json
 import logging
 import requests
 from .exists import exists
@@ -66,17 +67,18 @@ def request(text: str, title: str = None):
       "text": text
     }
   )
-  try:
-    json = api_response.json()
-    error_code = json["error_code"]
+  try:    
+    api_response.raise_for_status()
+    jsonify = json.loads(api_response.content.decode("unicode-escape"))
+    error_code = jsonify["error_code"]
     if error_code and int(error_code) > 0:
       logging.warning(
         f"REQUEST RETURNED ERROR WITH STATUS {error_code}: " +\
-          f"{json['error']} with text:\n" +\
+          f"{jsonify['error']} with text:\n" +\
             f"{text}"
       )
   except Exception as err:
     logging.error(f"REQUEST ERROR: {repr(err)}:{api_response.content}")
     return {"error": api_response.content}
-  return concretize_response(json)
+  return concretize_response(jsonify)
 

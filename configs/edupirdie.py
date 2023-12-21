@@ -4,7 +4,7 @@ HEADERS = {
   "Host": "edubirdie.com",
   "Accept": "*/*",
   "Accept-Language": "en-US,en;q=0.5",
-  "Accept-Encoding": "gzip, deflate, br",
+  "Accept-Encoding": "gzip",
   "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
   "Referer": "https://edubirdie.com/perevirka-na-plagiat",
   "X-Requested-With": "XMLHttpRequest",
