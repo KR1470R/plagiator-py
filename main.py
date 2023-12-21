@@ -40,6 +40,10 @@ bar_length = 30
 parser = DocumentParser()
 
 data = parser.extract_data(document_path)
+
+if data is None:
+  raise Exception("Unable to extact text from the document.")
+
 chunks = split_chunks(data, words_per_chunk)
 shuffle(chunks)
 
