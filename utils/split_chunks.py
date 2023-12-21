@@ -1,6 +1,6 @@
 import logging
 
-def split_chunks(text:str, words_per_chunk: int = 200):
+def split_chunks(text:str, words_per_chunk: int = 100):
   words = text.split(" ")
   logging.info(f"Words counted: {len(words)}")
   logging.info(f"Words per chunk: {words_per_chunk}")
