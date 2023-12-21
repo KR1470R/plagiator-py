@@ -1,0 +1,3 @@
+results/*
+!.gitkeep
+__pycache__
