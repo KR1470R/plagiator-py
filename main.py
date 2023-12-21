@@ -105,7 +105,7 @@ logging.info(
   f"The average uniqueness of the text is {round(average_percent, 2)}%"
 )
 
-logging.info(f"Saving detailed results in {results_designation}.")
+logging.info(f"Saving detailed results to {results_designation}...")
 with open(results_designation, "w") as results_file:
   results_file.write(json.dumps(results, indent=2, ensure_ascii=False))
   results_file.close()
