@@ -1,0 +1,6 @@
+docx2txt==0.8
+PyPDF2==3.0.1
+python-dotenv==1.0.0
+random_user_agent==1.0.1
+Requests==2.31.0
+textract==1.6.5
