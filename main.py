@@ -4,9 +4,9 @@ import dotenv
 import logging
 from time import sleep
 import concurrent.futures
+from random import randint
 from utils.exists import exists
 from os import getenv, path, curdir
-from random import randint, shuffle
 from utils.plagiator import Plagiator
 from utils.split_chunks import split_chunks
 from utils.document_parser import DocumentParser
@@ -46,7 +46,6 @@ if data is None:
   raise Exception("Unable to extact text from the document.")
 
 chunks = split_chunks(data, words_per_chunk)
-shuffle(chunks)
 
 results = []
 
@@ -106,7 +105,7 @@ logging.info(
   f"The average uniqueness of the text is {round(average_percent, 2)}%"
 )
 
-logging.info(f"Saving detailed results in {results_designation}.")
+logging.info(f"Saving detailed results to {results_designation}...")
 with open(results_designation, "w") as results_file:
   results_file.write(json.dumps(results, indent=2, ensure_ascii=False))
   results_file.close()
