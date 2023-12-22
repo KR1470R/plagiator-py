@@ -15,7 +15,7 @@ Windows is under the question due to i didn't tested, but should work respective
 ```bash
 git clone git@github.com:KR1470R/plagiator-py.git && cd plagiator-py
 python -m venv .venv && source .venv/bin/activate
-pip install -r requrements.txt
+pip install -r requirements.txt
 ```
 ## Usage
 The tool will be ready to use straight up after install.
