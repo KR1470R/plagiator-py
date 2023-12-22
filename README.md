@@ -1,6 +1,7 @@
 # plagiator-py
 ## Description
-Plagiarism detector, which uses the [edubirdie service](https://edubirdie.com/perevirka-na-plagiat) under the hood. It helps you to check approximate uniqueness of the document. Nice tool for school/college/university course/diploma projects.
+Plagiarism detector, which uses the [edubirdie service](https://edubirdie.com/perevirka-na-plagiat) under the hood. It helps you to check approximate uniqueness of the document. Nice tool for school/college/university course/diploma projects. \
+⚠️Due to the limits of the service, this tool can be used to use the service without any limitations in words amount and size of documents⚠️
 ## Supportable documents formats
 
  - pdf
