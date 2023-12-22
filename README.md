@@ -32,6 +32,6 @@ After entering the path and clicking enter the tool will show up the progress an
 ![finish image](https://github.com/KR1470R/plagiator-py/blob/master/assets/finish.png)
 <hr>
 
-Also, in the `/results` directory there will be saved more detailed results of the every plagiarism detection in json formats, in which you will see where exactly plagiarism detected and links of sources where specific text from your document matched in the WEB:
+Also, in the `/results` directory there will be saved more detailed results of the every plagiarism detection in json format, in which you will see where exactly the plagiarism detected and links of sources where specific text from your document matched in the WEB:
 
 ![results example image](https://github.com/KR1470R/plagiator-py/blob/master/assets/results_example.png)

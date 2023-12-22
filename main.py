@@ -7,7 +7,7 @@ import concurrent.futures
 from utils.exists import exists
 from os import getenv, path, curdir
 from random import randint, shuffle
-from utils.plagiator import request
+from utils.plagiator import Plagiator
 from utils.split_chunks import split_chunks
 from utils.document_parser import DocumentParser
 
@@ -34,10 +34,11 @@ results_designation = path.abspath(path.join(
   "results",
   result_target_filename
 ))
-concurrent_tasks_limit = int(getenv("CONCURRENT_TASKS_LINIT") or 12)
+concurrent_tasks_limit = int(getenv("CONCURRENT_TASKS_LIMIT") or 5)
 bar_length = 30
 
 parser = DocumentParser()
+plagiator = Plagiator()
 
 data = parser.extract_data(document_path)
 
@@ -62,7 +63,7 @@ def render_progress_bar(bar_percentage, nl=False):
   sys.stdout.flush()
 
 def test_plagiarism_task(data: str):
-  results.append(request(data))
+  results.append(plagiator.request(data))
 
 logging.info(f"Checking for plagiarism in {document_path}...")
 executor = concurrent.futures.ThreadPoolExecutor(
