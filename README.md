@@ -1,6 +1,7 @@
 # plagiator-py
 ## Description
-Plagiarism detector, which uses the [edubirdie service](https://edubirdie.com/perevirka-na-plagiat) under the hood. It helps you to check approximate uniqueness of the document. Nice tool for school/college/university course/diploma projects.
+Plagiarism detector, which uses the [edubirdie service](https://edubirdie.com/perevirka-na-plagiat) under the hood. It helps you to check approximate uniqueness of the document. Nice tool for school/college/university course/diploma projects. \
+⚠️This tool can be used to avoid the service limitations in words amount and size of documents⚠️
 ## Supportable documents formats
 
  - pdf
@@ -14,7 +15,7 @@ Windows is under the question due to i didn't tested, but should work respective
 ```bash
 git clone git@github.com:KR1470R/plagiator-py.git && cd plagiator-py
 python -m venv .venv && source .venv/bin/activate
-pip install -r requrements.txt
+pip install -r requirements.txt
 ```
 ## Usage
 The tool will be ready to use straight up after install.
