@@ -45,7 +45,7 @@ class DocumentParser:
           re.sub(
             "\s+|\n+",
             " ",
-            text
+            re.sub("\.+", " ", text)
           )
         )
       )

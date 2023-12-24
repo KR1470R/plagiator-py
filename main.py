@@ -46,33 +46,35 @@ if data is None:
   raise Exception("Unable to extact text from the document.")
 
 chunks = split_chunks(data, words_per_chunk)
+total = int(len(chunks))
 
 results = []
 
-def render_progress_bar(bar_percentage, nl=False):
+def render_progress_bar(bar_percentage, completed, nl=False):
   sys.stdout.write('\r')
   sys.stdout.write(
-    "Completed: [{:{}}] {:>3}%{}".format(
+    "Chunks completed: [{:{}}] {}/{}{}".format(
       '='*int(bar_percentage/(100.0/bar_length)),
       bar_length, 
-      int(bar_percentage),
+      completed,
+      total,
       "\n" if nl else ""
     )
   )
   sys.stdout.flush()
 
 def test_plagiarism_task(data: str):
-  results.append(plagiator.request(data))
+  processed = plagiator.process(data)
+  if processed: results.append(processed)
 
 logging.info(f"Checking for plagiarism in {document_path}...")
 executor = concurrent.futures.ThreadPoolExecutor(
   max_workers=concurrent_tasks_limit
 )
 current_progress = 0
-total = int(len(chunks))
 while len(chunks):
   bar_percentage = 100.0 * current_progress / total
-  render_progress_bar(bar_percentage)
+  render_progress_bar(bar_percentage, current_progress)
   if len(chunks) < concurrent_tasks_limit:
     executor.map(test_plagiarism_task, chunks)
     tasks_created = len(chunks)
@@ -88,7 +90,7 @@ while len(chunks):
   )
   del chunks[:concurrent_tasks_limit]
   current_progress += tasks_created
-render_progress_bar(100, True)
+render_progress_bar(100, total, True)
 
 if len(results) == 0:
   logging.error("There are no results.")

@@ -11,7 +11,6 @@ class Plagiator:
     self.session = requests.Session()
     adapter = requests.adapters.HTTPAdapter(pool_connections=10000, pool_maxsize=10000)
     self.session.mount("https://", adapter)
-
     software_names = [software_name.value for software_name in SoftwareName]
     operating_systems = [operating_system.value for operating_system in OperatingSystem]
     self.user_agent_rotator = UserAgent(
@@ -55,8 +54,8 @@ class Plagiator:
       response["matches"] = matches_highlight
     return response
 
-  def request(self, text: str, title: str = None):
-    api_response = self.session.post(
+  def __request__(self, text: str, title: str = None):
+    return self.session.post(
       API_URI, 
       headers={
         **HEADERS,
@@ -69,18 +68,32 @@ class Plagiator:
         "text": text
       }
     )
-    try:    
+
+  def process(self, text: str, title: str = None):
+    try:
+      api_response = self.__request__(text, title)
       api_response.raise_for_status()
       jsonify = json.loads(api_response.content.decode("unicode-escape"))
       error_code = jsonify["error_code"]
       if error_code and int(error_code) > 0:
+        if exists(jsonify, "error"):
+          message = jsonify["error"]
+        elif exists(jsonify, "message"):
+          message = jsonify["message"]
+        else: message = ""
         logging.warning(
           f"REQUEST RETURNED ERROR WITH STATUS {error_code}: " +\
-            f"{jsonify['error']} with text:\n" +\
+            f"{message}\n" +\
               f"{text}"
         )
     except Exception as err:
+      skip_err_msg = "The action you just performed triggered the security solution."
+      if skip_err_msg in api_response.decode():
+        return
       logging.error(f"REQUEST ERROR: {repr(err)}:{api_response.content}")
-      return {"error": api_response.content}
+      try:
+        return {"error": api_response.content.decode()}
+      except Exception:
+        return {"error": "something went wrong"}
     return self.concretize_response(jsonify)
 
