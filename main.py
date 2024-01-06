@@ -115,7 +115,6 @@ logging.info(
 )
 
 logging.info(f"Saving detailed results to {results_designation}...")
-with open(results_designation, "w") as results_file:
+with open(results_designation, "w", encoding="utf-8") as results_file:
   results_file.write(json.dumps(results, indent=2, ensure_ascii=False))
   results_file.close()
-
