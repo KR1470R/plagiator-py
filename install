@@ -1,0 +1,57 @@
+#!/bin/sh
+
+USER_SHELL=$(basename $SHELL)
+if [ "$USER_SHELL" = "zsh" ]; then
+  SHELLRC="$HOME/.zshrc"
+elif [ "$USER_SHELL" = "bash" ]; then
+  SHELLRC="$HOME/.bashrc"
+else 
+  echo "Unsupportable shell. Bash/Zsh supported." > /dev/stderr
+  exit 1
+fi
+
+if [ -d "./.venv" ]; then
+  rm -rf .venv
+fi
+
+echo "Preparing venv..."
+bash -c "python -m venv .venv"
+echo "Packing all dependencies..."
+bash -c ".venv/bin/python -m pip install -r requirements.txt"
+
+echo "Preparing new root directory..."
+ROOT="$HOME/.plagiator"
+if [ -d "$ROOT" ]; then
+  rm -rf "$ROOT"
+fi
+
+mkdir "$ROOT"
+rsync -av --progress . "$ROOT" \
+  --exclude assets \
+  --exclude .git \
+  --exclude results \
+  --exclude .gitignore \
+  --exclude install.sh
+
+echo "Preparing bootstrap script..."
+RUNNER="$ROOT/plagiator"
+ALL_ARGS='$@'
+SCRIPT=$(cat <<EOF
+cd $ROOT &&\
+source $ROOT/.venv/bin/activate &&
+python -m main $ALL_ARGS
+deactivate
+EOF
+)
+echo "$SCRIPT" > "$RUNNER"
+chmod +x "$RUNNER"
+
+echo "Checking for necessity to update "'the $PATH variable...'
+PATH_ADDON='export PATH=$PATH:'"$ROOT"
+if ! grep -q "$PATH_ADDON" "$SHELLRC"; then
+  printf "\n$PATH_ADDON" >> "$SHELLRC"
+  bash -c "$PATH_ADDON"
+  echo "Added plagiator path to '$PATH'"
+fi
+
+echo "Installed successfully"

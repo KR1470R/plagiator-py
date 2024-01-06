@@ -6,7 +6,7 @@ from time import sleep
 import concurrent.futures
 from random import randint
 from utils.exists import exists
-from os import getenv, path, curdir
+from os import getenv, path, curdir, mkdir
 from utils.plagiator import Plagiator
 from utils.split_chunks import split_chunks
 from utils.document_parser import DocumentParser
@@ -17,7 +17,12 @@ dotenv.load_dotenv(path.abspath(path.join(
 
 logging.basicConfig(level=logging.INFO)
 
-document_path = getenv("DOC_PATH") or input(
+try:
+  docpath_arg = sys.argv[1]
+except Exception:
+  docpath_arg = None
+
+document_path = docpath_arg or getenv("DOC_PATH") or input(
 """
 Enter absolute path to your document
 Supported formats:
@@ -29,9 +34,11 @@ Supported formats:
 )
 words_per_chunk = int(getenv("WORDS_PER_CHUNK") or 100)
 result_target_filename = path.basename(document_path).split(".")[0] + ".json"
+result_folder = path.join(curdir, "results")
+if not path.exists(result_folder):
+  mkdir(result_folder)
 results_designation = path.abspath(path.join(
-  curdir, 
-  "results",
+  result_folder,
   result_target_filename
 ))
 concurrent_tasks_limit = int(getenv("CONCURRENT_TASKS_LIMIT") or 5)

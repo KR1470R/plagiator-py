@@ -1,3 +1,4 @@
+
 # plagiator-py
 ## Description
 Plagiarism detector, which uses the [edubirdie service](https://edubirdie.com/perevirka-na-plagiat) under the hood. It helps you to check approximate uniqueness of the document. Nice tool for school/college/university course/diploma projects. \
@@ -36,3 +37,8 @@ After entering the path and clicking enter the tool will show up the progress an
 Also, in the `/results` directory there will be saved more detailed results of the every plagiarism detection in json format, in which you will see where exactly the plagiarism detected and links of sources where specific text from your document matched in the WEB:
 
 ![results example image](https://github.com/KR1470R/plagiator-py/blob/master/assets/results_example.png)
+if you are a linux user, you can execute `install` file inside the root project. If installation passed successfully, restart your terminal and you will be able to run the plagiator via the following command:
+```bash
+plagiator <path-to-document>
+```
+All detailed results in json format and other data will be saved in `~/.plagiator` directory.
