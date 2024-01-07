@@ -18,6 +18,16 @@ git clone git@github.com:KR1470R/plagiator-py.git && cd plagiator-py
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 ```
+### Note for linux users
+You can install the tool and use it as a CLI. Run the following command:
+```bash
+sudo bash install
+```
+After installation completed successfully, restart your terminal and use the plagiator by the following command:
+```bash
+plagiator <optional-path-to-document>
+```
+⚠️For now, detailed results in json format and other data will be saved in `~/.plagiator` directory!
 ## Usage
 The tool will be ready to use straight up after install.
 Run the command inside the project directory:
@@ -37,8 +47,3 @@ After entering the path and clicking enter the tool will show up the progress an
 Also, in the `/results` directory there will be saved more detailed results of the every plagiarism detection in json format, in which you will see where exactly the plagiarism detected and links of sources where specific text from your document matched in the WEB:
 
 ![results example image](https://github.com/KR1470R/plagiator-py/blob/master/assets/results_example.png)
-if you are a linux user, you can execute `install` file inside the root project. If installation passed successfully, restart your terminal and you will be able to run the plagiator via the following command:
-```bash
-plagiator <path-to-document>
-```
-All detailed results in json format and other data will be saved in `~/.plagiator` directory.
