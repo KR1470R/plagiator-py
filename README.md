@@ -21,18 +21,22 @@ pip install -r requirements.txt
 ### Note for linux users
 You can install the tool and use it as a CLI. Run the following command:
 ```bash
-sudo bash install
+bash install
 ```
 After installation completed successfully, restart your terminal and use the plagiator by the following command:
 ```bash
 plagiator <optional-path-to-document>
 ```
-⚠️For now, detailed results in json format and other data will be saved in `~/.plagiator` directory!
+⚠️For now, detailed results in json format and other data will be saved in `~/.plagiator` directory, instead of cloned projects repo!
 ## Usage
 The tool will be ready to use straight up after install.
 Run the command inside the project directory:
 ```bash
 python -m main
+```
+or(if installed)
+```bash
+plagiator
 ```
 It will ask you to specify absolute path to your document:
 
